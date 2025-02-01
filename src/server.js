@@ -3,6 +3,8 @@ const env = require("dotenv").config({ path: ".env" });
 const cors = require("cors");
 const server = express();
 const mongoose = require("mongoose");
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' })
 const {blogroutes} = require("./Routes/blogs");
 server.use(
   cors({
