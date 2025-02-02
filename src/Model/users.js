@@ -24,6 +24,9 @@ const userschema = new Schema({
     profilephoto: {
         type: String
     },
+    coverphoto:{
+      type: String
+    },
     posts: [
      {
         type: Schema.Types.ObjectId,

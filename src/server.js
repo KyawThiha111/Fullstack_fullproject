@@ -3,9 +3,8 @@ const env = require("dotenv").config({ path: ".env" });
 const cors = require("cors");
 const server = express();
 const mongoose = require("mongoose");
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' })
-const {blogroutes} = require("./Routes/blogs");
+
+const {authroutes} = require("./Routes/auth");
 server.use(
   cors({
     origin: process.env.ORIGIN,
@@ -19,7 +18,7 @@ server.use(express.static("public"));
 
 /* Routes for blogs */
 
-server.use("/blogs",blogroutes)
+server.use("/api/v1",authroutes)
 const connectDB = async () => {
   try {
     const result = await mongoose.connect(process.env.MONGO_URL);
