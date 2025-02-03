@@ -27,6 +27,9 @@ const userschema = new Schema({
     coverphoto:{
       type: String
     },
+    refreshtoken:{
+     type: String
+    },
     posts: [
      {
         type: Schema.Types.ObjectId,
@@ -36,18 +39,17 @@ const userschema = new Schema({
 }, {timestamps: true})
 
 userschema.pre('save', async function(next){
+   try {
     if(!this.isModified("password")){
         return next()
     }
-    bcrypt.hash(this.password,10,(err,hash)=>{
-        if(err){
-            console.log(err)
-            return next()
-        }
-        this.password = hash
-     }) 
-   
-    next();
+    const hashpassword = await bcrypt.hash(this.password,10);
+    this.password = hashpassword
+    return next()
+   } catch (error) {
+     console.log(error)
+     return next()
+   } 
 })
 
 userschema.methods.isPasswordMatch= async function(password){

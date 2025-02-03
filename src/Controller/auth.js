@@ -40,7 +40,12 @@ exports.adduser = async (req, res) => {
       profilephoto: propicUrl,
       coverphoto: coverpicUrl,
     });
-    return res.status(202).send("New user added!");
+
+    const newuserInfo = await users.findById(newuser._id).select(" -password -refreshtoken");
+    if(!newuserInfo){
+        return res.status(500).json({message:"Something went wrong"})
+    }
+    return res.status(202).json({message:"New user added!", newuser: newuserInfo});
   } catch (error) {
     fs.unlinkSync(propicpath)
     fs.unlinkSync(coverpicpath)
