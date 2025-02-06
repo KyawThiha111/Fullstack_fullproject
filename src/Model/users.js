@@ -57,16 +57,16 @@ userschema.methods.isPasswordMatch= async function(password){
 }
 
 userschema.methods.generateAccessToken = async function(){
-    jwt.sign({
+   return jwt.sign({
         _id: this._id,
         username: this.username,
         email : this.email
-    }),process.env.SECRET_KEY_TOKEN ,
-    {expiresIn: "1h"}
+    },process.env.SECRET_KEY_TOKEN ,
+    {expiresIn: "1h"})
 }
 
 userschema.methods.generateRefreshToken = async function(){
-    jwt.sign(
+  return jwt.sign(
         {_id: this._id}, process.env.REFRESH_KEY ,{expiresIn: "1d"}
     )
 }

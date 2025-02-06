@@ -16,7 +16,7 @@ cloudinary.config({
             }
         )
         fs.unlinkSync(filepath)
-        return uploadResult
+        return uploadResult // An obj with a url
     } catch (error) {
         console.log(error)
         fs.unlinkSync(filepath)
