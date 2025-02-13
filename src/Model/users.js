@@ -62,12 +62,12 @@ userschema.methods.generateAccessToken = async function(){
         username: this.username,
         email : this.email
     },process.env.SECRET_KEY_TOKEN ,
-    {expiresIn: "15min"})
+    {expiresIn: "15m"})
 }
 
 userschema.methods.generateRefreshToken = async function(){
   return jwt.sign(
-        {_id: this._id}, process.env.REFRESH_KEY ,{expiresIn: "12d"}
+        {_id: this._id}, process.env.REFRESH_KEY ,{expiresIn: "7d"}
     )
 }
 
